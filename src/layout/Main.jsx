@@ -23,11 +23,15 @@ class Main extends React.Component {
   getMovies(str = 'matrix', type = 'all') {
     this.setState({ isLoading: true });
     fetch(
-      `http://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${type !== 'all' ? `&type=${type}` : ''}`
+      `https://www.omdbapi.com/?apikey=${API_KEY}&s=${str}${type !== 'all' ? `&type=${type}` : ''}`
     )
       .then(response => response.json())
       .then(data => {
         this.setState({ movies: data.Search, isLoading: false });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ isLoading: false });
       });
   }
 
